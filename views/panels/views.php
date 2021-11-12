@@ -1,7 +1,7 @@
 <?php
 /**
  * application file.
- * 
+ *
  * Description of application file
  *
  * @author Sergey Malyshev <malyshev.php@gmail.com>
@@ -42,7 +42,7 @@ $index = 1;
                                     <th>Defined in file</th>
                                     <td><?php echo $this->getFilePath($item['reflection']->getFileName()) ?></td>
                                 </tr>
-                        
+
                                 <tr>
                                     <th>Context properties</th>
                                     <td>
@@ -60,7 +60,7 @@ $index = 1;
                                         <?php endif; ?>
                                     </td>
                                 </tr>
-                        
+
                                 <?php if(null!==$item['action']): ?>
                                 <tr>
                                     <th>Route</th>
@@ -70,7 +70,7 @@ $index = 1;
                                     <th>Action</th>
                                     <td><?php echo get_class($item['action']) , '&nbsp;(' , $item['action']->getId() , ')'  ?></td>
                                 </tr>
-                        
+
                                 <tr>
                                     <th>Action params</th>
                                     <td>
@@ -96,8 +96,8 @@ $index = 1;
                                     <th>View file</th>
                                     <td><?php echo $this->getFilePath($item['sourceFile']) ?></td>
                                 </tr>
-                        
-                                <?php if(!(1===count($item['data']) && isset($item['data']['content']))): ?>
+
+                                <?php if(is_array($item['data'])): ?>
                                 <tr>
                                     <th>View data</th>
                                     <td>
@@ -117,7 +117,7 @@ $index = 1;
                                 </tr>
                                 <?php endif; ?>
                             </tbody>
-                        </table>   
+                        </table>
                 </div>
             </div>
             <?php endforeach; ?>

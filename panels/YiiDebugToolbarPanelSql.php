@@ -19,10 +19,10 @@
 class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
 {
 	public $i = 'i';
-	
+
     /**
      * If true, the sql query in the list will use syntax highlighting.
-     * 
+     *
      * @var boolean
      */
     public $highlightSql = true;
@@ -203,17 +203,17 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
                 YiiDebug::t('Driver') => $connection->getDriverName(),
                 YiiDebug::t('Server Version') => $connection->getServerVersion()
             );
-            
+
             $lines = explode('  ', $serverInfo);
             foreach($lines as $line) {
                 list($key, $value) = explode(': ', $line, 2);
                 $info[YiiDebug::t($key)] = $value;
             }
-            
+
             if(!empty($info[YiiDebug::t('Uptime')])) {
                 $info[YiiDebug::t('Uptime')] = $this->duration($info[YiiDebug::t('Uptime')]);
             }
-            
+
             return $info;
         }
         return null;
@@ -330,9 +330,8 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
         }
 
         $entries = array_values($results);
-        $func    = create_function('$a,$b','return $a[4]<$b[4]?1:0;');
 
-        usort($entries, $func);
+        usort($entries, function($a, $b) { return $a[4] < $b[4] ? 1 : 0; });
 
         return array_map(array($this, 'formatLogEntry'), $entries);
     }
@@ -350,7 +349,7 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
         $sqlStart = strpos($queryString, '(') + 1;
         $sqlEnd = strrpos($queryString , ')');
         $sqlLength = $sqlEnd - $sqlStart;
-        
+
         $queryString = substr($queryString, $sqlStart, $sqlLength);
 
         if (false !== strpos($queryString, '. Bound with '))
@@ -362,7 +361,7 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
 
             if ($matchResult) {
                 foreach ($paramsMatched as $paramsMatch)
-	                if (isset($paramsMatch['key'], $paramsMatch['value']))                        
+	                if (isset($paramsMatch['key'], $paramsMatch['value']))
                         $binds[':' . trim($paramsMatch['key'],': ')] = trim($paramsMatch['value']);
             }
 
